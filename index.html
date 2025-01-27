@@ -9,6 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Magic 8 Ball</title>
   <style>
+    
     :root {
       --ball-d: 600px;
       margin: 0;
@@ -25,7 +26,6 @@
       font-family: monospace;
       text-shadow: 1px 1px 2px red, 0 0 1em blue, 0 0 0.2em purple;
     }
-
     .title {
       position: fixed;
       top: 5vh;
@@ -41,7 +41,6 @@
       justify-content: center;
       align-items: center;
     }
-
     .ball {
       width: var(--ball-d);
       height: var(--ball-d);
@@ -52,7 +51,6 @@
       border-radius: 50%;
       cursor: pointer;
     }
-
     .window {
       width: calc(var(--ball-d) * 0.4);
       height: calc(var(--ball-d) * 0.4);
@@ -72,7 +70,6 @@
       z-index: 7;
       /* background: radial-gradient(farthest-corner at 0px 400px, #aaa 0%, black 50%); */
     }
-
     .depth {
       width: 260px;
       height: 260px;
@@ -80,7 +77,6 @@
       background: radial-gradient(rgba(0,0,0,0), rgba(0,0,0,0.6),rgba(0,0,0,1), rgba(0,0,0,1));
       z-index: 6;
     }
-
     .triangle {
       display: none;
       width: 0;
@@ -94,7 +90,6 @@
       transform: translateX(-50%) translateY(15%) rotate(180deg);
       z-index: 5;
     }
-
     .message {
       position: absolute;
       top: 48%;
@@ -126,7 +121,6 @@
       80% { transform: translateX(2%) }
       100% { }
     }
-
     @keyframes shakeTriangleAnimation {
       0% { transform: translateX(53%) translateY(-12%) rotate(160deg); }
       20% {
@@ -185,6 +179,7 @@
 </a>
 
 <script>
+  
   const answers = [
     "It is certain",
     "It is decidedly so",
@@ -208,11 +203,12 @@
     "Outlook not so good",
     "Very doubtful",
   ];
-  document.getElementById('message').textContent = "?";
+  
   function shakeBall() {
     const ball = document.getElementById('ball');
     const triangle = document.getElementById('triangle');
     const message = document.getElementById('message');
+    
     const randomAnswer = answers[Math.floor(Math.random() * answers.length)];
 
     ball.classList.add('shake-ball');
@@ -227,6 +223,7 @@
       message.style.display = 'block';
     }, 1000);
   }
+  
 </script>
 
 </body>
