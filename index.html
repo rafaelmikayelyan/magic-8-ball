@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magic 8 Ball</title>
+  <style>
+    :root {
+      --ball-d: 600px;
+      margin: 0;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      background-image: linear-gradient(black, #2e2c36);
+      color: grey;
+      color: #ccbfcc;
+      font-family: monospace;
+      text-shadow: 1px 1px 2px red, 0 0 1em blue, 0 0 0.2em purple;
+    }
+
+    .title {
+      position: fixed;
+      top: 5vh;
+      text-align: center;
+      z-index: 10;
+
+    }
+    .container {
+      text-align: center;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .ball {
+      width: var(--ball-d);
+      height: var(--ball-d);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(farthest-corner at calc(var(--ball-d) * 0.1) calc(var(--ball-d) * 0.9), #aaa 0%, black 50%);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .window {
+      width: calc(var(--ball-d) * 0.4);
+      height: calc(var(--ball-d) * 0.4);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(0, 0, 0, 0.9) 30%, rgba(50, 50, 50, 0.8) 70%),
+        radial-gradient(farthest-corner at 200px 50px, #aaa 0%, black 50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.2), 0 0 60px rgba(0, 0, 0, 0.8);
+      position: relative;
+      transition: transform 1s ease;
+      /* border: 6px solid #333; */
+      border: calc(var(--ball-d) * 0.01) solid #111111;
+      overflow: hidden;
+      z-index: 7;
+      /* background: radial-gradient(farthest-corner at 0px 400px, #aaa 0%, black 50%); */
+    }
+
+    .depth {
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(rgba(0,0,0,0), rgba(0,0,0,0.6),rgba(0,0,0,1), rgba(0,0,0,1));
+      z-index: 6;
+    }
+
+    .triangle {
+      display: none;
+      width: 0;
+      height: 0;
+      border-left: 80px solid transparent;
+      border-right: 80px solid transparent;
+      border-bottom: 140px solid rgba(75, 0, 130, 0.6);
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%) translateY(15%) rotate(180deg);
+      z-index: 5;
+    }
+
+    .message {
+      position: absolute;
+      top: 48%;
+      left: 50%;
+      width: 34%;
+      transform: translate(-50%, -50%);
+      font-size: calc(var(--ball-d) * .03);
+      color: hsl(275, 100%, 70%);
+      text-align: center;
+      line-height: 1.4;
+      z-index: 2;
+      display: none;
+      font-family: 'Arial', sans-serif;
+      font-weight: 500;
+    }
+
+    .shake-ball {
+      animation: shakeBallAnimation 0.5s ease-in;
+    }
+    .shake-triangle {
+      animation: shakeTriangleAnimation 0.99s ease-out;
+    }
+
+    @keyframes shakeBallAnimation {
+      0% { transform: translateX(-10%) translateY(5%); }
+      25% { transform: translateX(0%) translateY(10%); }
+      50% { transform: translateX(3%) translateY(-10%); }
+      75% { transform: translateX(0%) translateY(5%); }
+      80% { transform: translateX(2%) }
+      100% { }
+    }
+
+    @keyframes shakeTriangleAnimation {
+      0% { transform: translateX(53%) translateY(-12%) rotate(160deg); }
+      20% {
+        border-bottom: 80px solid rgba(75, 0, 130, 0.4);
+        border-left: 30px solid transparent;
+        border-right: 30px solid transparent;
+      }
+      25% { transform: translateX(-60%) translateY(15%) rotate(240deg); }
+      50% { transform: translateX(-55%) translateY(10%) rotate(-90deg); }
+      55% {
+        border-bottom: 100px solid rgba(75, 0, 130, 0.4);
+        border-left: 40px solid transparent;
+        border-right: 40px solid transparent;
+      }
+      75% { transform: translateX(-60%) translateY(13%) rotate(-160deg); }
+      100% { transform: translateX(-50%) translateY(15%) rotate(-180deg); }
+    }
+
+  .github-link {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+  }
+  .github {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E");
+    background-color: grey;
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+  }
+
+  </style>
+</head>
+<body>
+  <div class="title">
+    <h1>THE MAGIC 8 BALL</h1>
+    <h5>CLICK IT</h5>
+  </div>
+<div class="container">
+  <div class="ball" id="ball" onclick="shakeBall()">
+    <div class="window" id="window">
+      <div class="triangle" id="triangle"></div>
+      <div class="depth"</div>
+      <div class="message" id="message"></div>
+    </div>
+  </div>
+</div>
+<a href="https://github.com/rafaelmikayelyan/magic-8-ball/" target="_blank" rel="noopener noreferrer" title="open GitHub" class="github-link">
+  <span class="github"></span>
+</a>
+
+<script>
+  const answers = [
+    "It is certain",
+    "It is decidedly so",
+    "Without a doubt",
+    "Yes definitely",
+    "You may rely on it",
+    "As I see it, yes",
+    "Most likely",
+    "Outlook good",
+    "Yes",
+    "Positive",
+    "Signs point to yes",
+    "Reply hazy, try again",
+    "Ask again later",
+    "Better not tell you now",
+    "Cannot predict now",
+    "Concentrate and ask again",
+    "Don’t count on it",
+    "My reply is no",
+    "My sources say no",
+    "Outlook not so good",
+    "Very doubtful",
+  ];
+  document.getElementById('message').textContent = "?";
+  function shakeBall() {
+    const ball = document.getElementById('ball');
+    const triangle = document.getElementById('triangle');
+    const message = document.getElementById('message');
+    const randomAnswer = answers[Math.floor(Math.random() * answers.length)];
+
+    ball.classList.add('shake-ball');
+    triangle.classList.add('shake-triangle');
+    message.style.display = 'none';
+    triangle.style.display = 'block';
+
+    setTimeout(() => {
+      ball.classList.remove('shake-ball');
+      triangle.classList.remove('shake-triangle');
+      message.textContent = randomAnswer;
+      message.style.display = 'block';
+    }, 1000);
+  }
+</script>
+
+</body>
+</html>
